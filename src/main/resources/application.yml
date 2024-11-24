@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE  #http://localhost:8082
+          predicates:
+            - Path=/api/users/**
+        - id: EMAIL-SERVICE
+          uri: lb://EMAIL-SERVICE   #http://localhost:8081
+          predicates:
+            - Path=/api/notifications/**
+        - id: BORROW-SERVICE
+          uri: lb://BORROW-SERVICE   #http://localhost:8081
+          predicates:
+            - Path= /borrownow/**
+            - Path= /returnbook/**
+      discovery:
+        locator:
+          enabled: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+#    hostname: localhost
