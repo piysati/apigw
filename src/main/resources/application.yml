@@ -16,10 +16,15 @@ spring:
           predicates:
             - Path=/api/notifications/**
         - id: BORROW-SERVICE
-          uri: lb://BORROW-SERVICE   #http://localhost:8081
+          uri: lb://BORROW-SERVICE   #http://localhost:3001
           predicates:
             - Path= /borrownow/**
             - Path= /returnbook/**
+        - id: BOOK-SERVICE
+          uri: lb://BOOK-SERVICE   #http://localhost:3000
+          predicates:
+            - Path= /book/**
+            - Path= /books/**
       discovery:
         locator:
           enabled: true
